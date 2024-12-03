@@ -1,4 +1,5 @@
 const User = require("../models/auth-model");
+const bcrypt = require("bcryptjs");
 
 // User Registration
 exports.user_register = (req, res, next) => {

@@ -12,13 +12,18 @@ exports.routes_get_all = async (req, res) => {
 
 // Create a new route
 exports.router_create_route = async (req, res) => {
-  const { startPlace, endPlace, stopPlaces } = req.body;
-  if (!startPlace || !endPlace || !stopPlaces) {
+  const { startPlace, endPlace, stopPlaces, busRouteNumber } = req.body;
+  if (!startPlace || !endPlace || !stopPlaces || !busRouteNumber) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
   try {
-    const route = new Routes({ startPlace, endPlace, stopPlaces });
+    const route = new Routes({
+      startPlace,
+      endPlace,
+      stopPlaces,
+      busRouteNumber,
+    });
     await route.save();
     res.status(201).json({
       message: "Route created successfully",
@@ -51,6 +56,7 @@ exports.routes_update_route_by_id = async (req, res) => {
     route.startPlace = req.body.startPlace;
     route.endPlace = req.body.endPlace;
     route.stopPlaces = req.body.stopPlaces;
+    route.busRouteNumber = req.body.busRouteNumber;
     await route.save();
     res.status(200).json({ message: "Route updated successfully" });
   } catch (error) {

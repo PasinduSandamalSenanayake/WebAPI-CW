@@ -6,6 +6,7 @@ require("dotenv").config();
 // paths
 const authRoutes = require("./routes/auth-route");
 const routeRoutes = require("./routes/route-route");
+const busRoutes = require("./routes/bus-route");
 
 const app = express();
 app.use(bodyParser.json());
@@ -13,6 +14,7 @@ app.use(bodyParser.json());
 // Routes
 app.use("/auth", authRoutes);
 app.use("/routes", routeRoutes);
+app.use("/buses", busRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI, {
