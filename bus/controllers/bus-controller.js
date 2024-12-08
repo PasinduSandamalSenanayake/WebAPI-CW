@@ -77,3 +77,39 @@ exports.get_bus_by_id = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.get_all_ac_buses = async (req, res) => {
+  const acBuses = await Buses.find({ busType: "AC" });
+  try {
+    if (acBuses.length === 0) {
+      return res.status(404).json({ message: "No AC buses found" });
+    }
+    res.status(200).json({ data: acBuses });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.get_all_normal_buses = async (req, res) => {
+  const nonAcBuses = await Buses.find({ busType: "Normal" });
+  try {
+    if (nonAcBuses.length === 0) {
+      return res.status(404).json({ message: "No Non-AC buses found" });
+    }
+    res.status(200).json({ data: nonAcBuses });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.get_all_semi_luxury_buses = async (req, res) => {
+  const semiLuxuryBuses = await Buses.find({ busType: "Semi-Luxury" });
+  try {
+    if (semiLuxuryBuses.length === 0) {
+      return res.status(404).json({ message: "No Semi-Luxury buses found" });
+    }
+    res.status(200).json({ data: semiLuxuryBuses });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
