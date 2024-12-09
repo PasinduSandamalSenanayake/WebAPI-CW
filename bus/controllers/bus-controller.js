@@ -113,3 +113,25 @@ exports.get_all_semi_luxury_buses = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// Have a error in this function
+exports.get_all_buses_by_type = async (req, res) => {
+  try {
+    const { type } = req.query; // Extract 'type' from query parameters
+
+    if (type) {
+      // Ensure you're querying by 'type' and not '_id'
+      const buses = await Buses.find({ type }); // Adjust based on your schema
+      return res.status(200).json({ success: true, data: buses });
+    }
+
+    // If no type is provided, return all buses
+    const allBuses = await Buses.find();
+    return res.status(200).json({ success: true, data: allBuses });
+  } catch (error) {
+    // Handle errors and send meaningful response
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// module.exports = { get_all_buses_by_type };
